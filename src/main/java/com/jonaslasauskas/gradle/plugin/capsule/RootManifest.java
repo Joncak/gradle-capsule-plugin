@@ -61,6 +61,12 @@ public final class RootManifest extends Manifest {
     nestedManifests.add(javaManifest);
   }
   
+  void mode(String name, Closure<?> configuration) {
+    Manifest modeManifest = new Manifest(name);
+    ConfigureUtil.configure(configuration, modeManifest);
+    nestedManifests.add(modeManifest);
+  }
+  
   @Override void writeTo(org.gradle.api.java.archives.Manifest jarManifest) {
     new Attributes()
         .putIfPresent("Premain-Class", premainClass)
