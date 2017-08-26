@@ -55,6 +55,12 @@ public final class RootManifest extends Manifest {
     nestedManifests.add(platformManifest);
   }
   
+  void java(int version, Closure<?> configuration) {
+    Manifest javaManifest = new Manifest("Java-" + version);
+    ConfigureUtil.configure(configuration, javaManifest);
+    nestedManifests.add(javaManifest);
+  }
+  
   @Override void writeTo(org.gradle.api.java.archives.Manifest jarManifest) {
     new Attributes()
         .putIfPresent("Premain-Class", premainClass)
